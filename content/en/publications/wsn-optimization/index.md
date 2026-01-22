@@ -16,7 +16,11 @@ author_notes:
 
 # 论文发表时间 (根据实际情况填)
 date: "2025-05-01T00:00:00Z"
-doi: "10.1109/CCISP67522.2025.11282074"  # 假定这是从你链接里提取的DOI
+
+# DOI (新格式)
+hugoblox:
+  ids:
+    doi: "10.1109/CCISP67522.2025.11282074"
 
 # 论文类型:
 # 1 = Conference paper (会议)
@@ -33,8 +37,10 @@ abstract: "This paper presents a comparative study of nature-inspired metaheuris
 links:
 - name: IEEE Xplore
   url: https://ieeexplore.ieee.org/document/11282074
-url_pdf: uploads/wsn-paper.pdf  # 如果你有PDF，放在 static/uploads/ 下
-url_code: https://github.com/zijin913/WSN-Optimization-Metaheuristics # 如果有代码，务必放上去！
+- type: pdf
+  url: uploads/wsn-paper.pdf
+- type: code
+  url: https://github.com/zijin913/WSN-Optimization-Metaheuristics
 
 # 特色功能
 featured: true
