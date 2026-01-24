@@ -53,21 +53,32 @@ education:
     end: 2025-06
 
 experience:
-  - role: Senior AI Research Scientist
-    org: Meta AI
-    start: 2020-01-01
+  - role: Research Assistant (Metaheuristics & WSN)
+    org: University of Glasgow
+    start: 2024-09-01
+    end: 2025-01-01
     summary: |
-      Leading research on multimodal AI systems. Contributed to Llama 2 and other open-source models.
+      Instructed by **Prof. Amir Parnianifard**.
+      * Proposed a hybrid metaheuristic algorithm (PSO, GWO, GA) for WSN coverage optimization.
+      * Achieved **86% coverage efficiency** in complex environments using MATLAB simulations.
+      * Paper accepted by **IEEE CCISP 2025**.
     button:
-      text: View portfolio
-      url: /
-      icon: hero/arrow-down-tray
-  - role: AI Research Intern
-    org: OpenAI
-    start: 2019-06-01
-    end: 2019-12-31
+      text: View Paper
+      url: /publications/wsn-optimization/
+      icon: hero/document-text
+
+  - role: Software Engineer Intern (SoC Verification)
+    org: VeriSilicon Microelectronics
+    start: 2025-02-01
+    end: 2025-05-01
     summary: |
-      Worked on GPT-3 scaling. Co-authored paper on prompt engineering.
+      Focused on **Embedded AI** and NPU driver testing for robotics chips.
+      * Conducted automated testing for Neural Network processors on 8mscale/8qm SoCs.
+      * Developed Python scripts to streamline hardware-software integration workflows.
+    button:
+      text: Company Website
+      url: https://www.verisilicon.com/
+      icon: hero/arrow-top-right-on-square
 
 skills:
   - name: Technical Skills
