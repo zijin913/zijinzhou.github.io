@@ -53,7 +53,7 @@ education:
     end: 2025-06
 
 experience:
-  - role: Research Assistant (Metaheuristics & WSN)
+  - role: Research Assistant
     org: University of Glasgow
     start: 2024-09-01
     end: 2025-01-01
@@ -64,7 +64,7 @@ experience:
       * Paper accepted by **IEEE CCISP 2025**.
     button:
       text: View Paper
-      url: /publications/wsn-optimization/
+      url: /en/publications/wsn-optimization/
       icon: hero/document-text
 
   - role: Software Engineer Intern (SoC Verification)
@@ -80,35 +80,71 @@ experience:
       url: https://www.verisilicon.com/
       icon: hero/arrow-top-right-on-square
 
+# skills:
+#   - name: Technical Skills
+#     items:
+#       - label: Python
+#         level: 5
+#       - label: Machine Learning
+#         level: 5
+#       - label: Cloud Computing
+#         level: 4
+#   - name: Research & Communication
+#     items:
+#       - label: Academic Writing
+#         level: 5
+#       - label: Conference Presentations
+#         level: 4
+#       - label: Grant Proposals
+#         level: 4
+
 skills:
-  - name: Technical Skills
+  - name: Programming Languages
     items:
+      - label: C/C++
+        level: 4
       - label: Python
         level: 5
-      - label: Machine Learning
-        level: 5
-      - label: Cloud Computing
+      - label: MATLAB / Simulink
         level: 4
-  - name: Research & Communication
+      - label: Bash / Shell
+        level: 3
+
+  - name: Robotics & Perception
     items:
-      - label: Academic Writing
+      - label: ROS / ROS2
+        level: 4
+      - label: PyTorch / TensorFlow
+        level: 4
+      - label: OpenCV & Computer Vision
+        level: 4
+      - label: SLAM & Navigation (Nav2)
+        level: 2
+      - label: Gazebo / Rviz Simulation
+        level: 3
+
+  - name: Embedded & Tools
+    items:
+      - label: Linux (Ubuntu)
+        level: 4
+      - label: STM32 / Embedded C
         level: 5
-      - label: Conference Presentations
+      - label: Docker & Git
         level: 4
-      - label: Grant Proposals
-        level: 4
+      - label: FPGA / Vivado
+        level: 3
 
 languages:
   - name: English
-    level: 5
-    label: Native
-  - name: Spanish
     level: 4
     label: Fluent
+  - name: Chinese
+    level: 5
+    label: Native
 
 awards:
-  - title: Best Paper Award
-    awarder: NeurIPS
-    date: "2022-12-01"
-    summary: Awarded for groundbreaking work on efficient training of large models.
+  - title: National Scholarship
+    awarder: Ministry of Education of China
+    date: "2023-12 & 2024-12"
+    summary: Awarded for outstanding academic performance (Top 1% in my university).
     icon: hero/trophy
