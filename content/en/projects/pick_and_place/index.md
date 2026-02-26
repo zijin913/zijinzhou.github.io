@@ -10,16 +10,9 @@ tags:
   - Kinematics
 date: 2025-12-13
 
-# Optional: Link to your code (if public)
-# links:
-#   - name: Read Full Report
-#     url: uploads/MEAM_5200_Final_Project_Report.pdf
-#     icon: file-pdf
-#     icon_pack: fas
-#   - icon: github
-#     icon_pack: fab
-#     name: View Code
-#     url: https://github.com/your-repo-url
+links:
+- type: code
+  url: https://github.com/zijin913/meam520_final
 ---
 
 ## 🎯 Project Scope

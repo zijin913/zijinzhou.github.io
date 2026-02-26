@@ -6,6 +6,10 @@ tags:
   - SLAM
   - PyTorch
 date: 2025-11-01
+
+links:
+- type: code
+  url: https://github.com/zijin913/CIS5800-Machine-Perception
 ---
 
 ## Project Highlights
