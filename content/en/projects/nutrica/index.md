@@ -17,11 +17,16 @@ links:
   url: https://github.com/zijin913/Nutrica
 ---
 
+## Recognition
+
+In 2026, Nutrica was honored as a **Gold Winner at the MUSE Creative Awards** in the category **“App / Mobile App – Health & Wellness”** for *Nutrica: Puzzle-Based Nutrition Journaling*. 
+
 ## Demo
 
 <video width="100%" controls>
   <source src="nutrica.mp4" type="video/mp4">
 </video>
+ 
 
 ## Project Overview
 

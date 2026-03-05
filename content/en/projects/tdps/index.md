@@ -1,5 +1,5 @@
 ---
-title: Autonomous Urban Robot
+title: Autonomous Robot Car
 summary: An embedded mobile robot capable of lane tracking, traffic light recognition, and obstacle avoidance.
 tags:
   - Embedded Systems

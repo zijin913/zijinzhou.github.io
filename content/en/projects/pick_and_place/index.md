@@ -1,5 +1,5 @@
 ---
-title: Autonomous Robotic Manipulation
+title: Franka Robotic Manipulation
 summary: A full-stack autonomous manipulation system capable of static stacking and dynamic grasping on a moving turntable.
 math: true
 tags:
@@ -16,11 +16,23 @@ links:
 ---
 
 ## 🎯 Project Scope
-Developed for the UPenn MEAM 5200 Final Competition, this project required the **Franka Emika Panda** arm to autonomously detect, pick, and stack blocks to build the tallest tower. The system had to handle:
-* **Static Environment:** Precision stacking of scattered blocks.
-* **Dynamic Environment:** Grasping moving targets on a rotating turntable with unknown speed.
 
-<br>**My Role:** Motion Planning (IK), State Machine Architecture, Sim-to-Real Deployment.
+<div style="display: flex; gap: 1.5rem; align-items: flex-start; flex-wrap: nowrap;">
+  <div style="flex: 0 0 320px; max-width: 320px;">
+    <video style="width: 100%; height: auto; border-radius: 10px;" controls muted autoplay loop playsinline preload="metadata">
+      <source src="demo_5x.mp4" type="video/mp4">
+    </video>
+    <span style="position: absolute; bottom: 10px; left: 10px; background: rgba(0,0,0,0.7); color: #fff; padding: 2px 6px; border-radius: 4px; font-size: 12px; font-weight: bold;">5x</span>
+  </div>
+  <div style="flex: 1 1 auto; min-width: 0;">
+    Developed for the UPenn MEAM 5200 Final Competition, this project required the <strong>Franka Emika Panda</strong> arm to autonomously detect, pick, and stack blocks to build the tallest tower. The system had to handle:
+    <ul>
+      <li><strong>Static Environment:</strong> Precision stacking of scattered blocks.</li>
+      <li><strong>Dynamic Environment:</strong> Grasping moving targets on a rotating turntable with unknown speed.</li>
+    </ul>
+    <br><strong>My Role:</strong> Motion Planning (IK), State Machine Architecture, Sim-to-Real Deployment.
+  </div>
+</div>
 
 ---
 
@@ -44,11 +56,3 @@ We designed a hierarchical Finite State Machine (FSM) to ensure robust autonomy.
 
 ---
 
-## 📺 Demo & Results
-
-<div style="position: relative; display: inline-block; width: 80%;">
-  <video width="100%" controls muted autoplay loop>
-    <source src="demo_5x.mp4" type="video/mp4">
-  </video>
-  <span style="position: absolute; bottom: 50px; left: 10px; background: rgba(0,0,0,0.7); color: #fff; padding: 4px 8px; border-radius: 4px; font-size: 14px; font-weight: bold;">5x</span>
-</div>

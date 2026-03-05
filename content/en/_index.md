@@ -49,17 +49,10 @@ sections:
   #       Please reach out to collaborate 😃
   #   design:
   #     columns: '1'
-  - block: collection
-    id: papers
+  - block: resume-awards
     content:
-      title: Publications
-      filters:
-        folders:
-          - publications
-        featured_only: true
-    design:
-      view: article-grid
-      columns: 1 #2
+      title: Awards
+      username: me
   # - block: collection
   #   content:
   #     title: Recent Publications
