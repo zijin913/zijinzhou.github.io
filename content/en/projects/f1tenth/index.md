@@ -1,6 +1,7 @@
 ---
 title: F1Tenth Autonomous Racing
 summary: Programming a 1/10th-scale autonomous racecar in ROS 2 — from reactive collision avoidance to SLAM-based navigation — competing in live races at UPenn's Levine Lobby. 1st place in Race 2.
+featured_video: final_race.mp4
 math: true
 tags:
   - Robotics
@@ -11,25 +12,27 @@ tags:
   - SLAM
   - Control Systems
 date: 2026-02-25
+
+links:
+- type: code
+  url: https://github.com/zijin913/ese615-f1tenth
 ---
 
-## 🏎️ What is F1Tenth?
+## The platform
 
-**F1Tenth** is a competitive autonomous racing platform built around 1/10th-scale racecars. Each car is equipped with a **Hokuyo LiDAR**, an **IMU**, and a **Jetson Orin NX** compute module — no GPS, no remote control, no safety driver. Everything runs on ROS 2 and the team's own code.
+F1Tenth is a competitive autonomous racing platform built around 1/10th-scale racecars. Each car carries a Hokuyo LiDAR, an IMU, and a Jetson Orin NX — no GPS, no remote control, no safety driver. Everything runs on ROS 2 and the team's own code.
 
-The course at UPenn (Spring 2026) progresses from safety-critical reactive systems to full SLAM-based autonomous racing over 6+ labs and multiple live race events inside Levine Hall.
+UPenn's Spring 2026 course (ESE 615) progresses from safety-critical reactive systems to map-based racing to motion planning, vision, and model predictive control — across eight labs and three live races inside Levine and Houston Hall.
 
 ---
 
-## 🏁 Race 1: Reactive Racing — Completed ✅
+## Race 1 — Reactive Racing
 
-**Date:** February 25, 2026 &nbsp;|&nbsp; **Venue:** Levine Lobby, UPenn
+February 25, 2026 · Levine Lobby, UPenn · **3rd place**
 
-**Result:** 3rd Place 🥉
-
-<div style="display: flex; gap: 1.5rem; align-items: flex-start; flex-wrap: nowrap;">
+<div style="display: flex; gap: 1.5rem; align-items: center; flex-wrap: nowrap;">
   <div style="flex: 0 0 320px; max-width: 320px;">
-    <video style="width: 100%; height: auto; border-radius: 10px;" controls playsinline preload="metadata">
+    <video style="width: 100%; height: 360px; object-fit: cover; border-radius: 10px; display: block;" controls playsinline preload="metadata">
       <source src="race1.mp4" type="video/mp4">
     </video>
   </div>
@@ -41,15 +44,14 @@ The course at UPenn (Spring 2026) progresses from safety-critical reactive syste
 </div>
 
 ---
-## 🗺️ Race 2: Racing with Map — Completed ✅
 
-**Date:** March 23, 2026 &nbsp;|&nbsp; **Venue:** Levine Lobby, UPenn
+## Race 2 — Racing with Map
 
-**Result:** 1st Place 🥇
+March 23, 2026 · Levine Lobby, UPenn · **1st place**
 
-<div style="display: flex; gap: 1.5rem; align-items: flex-start; flex-wrap: nowrap;">
+<div style="display: flex; gap: 1.5rem; align-items: center; flex-wrap: nowrap;">
   <div style="flex: 0 0 320px; max-width: 320px;">
-    <video style="width: 100%; height: auto; border-radius: 10px;" controls playsinline preload="metadata">
+    <video style="width: 100%; height: 360px; object-fit: cover; border-radius: 10px; display: block;" controls playsinline preload="metadata">
       <source src="race2.mp4" type="video/mp4">
     </video>
   </div>
@@ -60,7 +62,26 @@ The course at UPenn (Spring 2026) progresses from safety-critical reactive syste
 
 ---
 
-## 🔬 Labs & Algorithms
+## Final Race — Head-to-Head Racing
+
+Houston Hall, UPenn · **3rd place**
+
+<div style="display: flex; gap: 1.5rem; align-items: flex-start; flex-wrap: nowrap;">
+  <div style="flex: 0 0 320px; max-width: 320px;">
+    <video style="width: 100%; height: auto; border-radius: 10px;" controls playsinline preload="metadata">
+      <source src="final_race.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div style="flex: 1 1 auto; min-width: 0;">
+    The final race takes everything from the semester and puts two cars on the same track. The challenge is no longer just tracking a single optimal raceline — it's also <strong>overtaking</strong> a moving opponent without leaving the track or stalling on contact.
+    <br><br>
+    Our stack combined a <strong>multi-raceline pure-pursuit planner</strong> (precomputed inner / outer lines, with lane-switching logic triggered by opponent proximity) with a reactive overtaking layer that watches the LiDAR for opponent footprints, and an <strong>RRT\*</strong> fallback for obstacle-heavy laps where the precomputed lines were no longer feasible. The biggest tuning work was around the hand-off: when to commit to a passing line, when to abandon it, and how to recover to the nominal raceline once clear.
+  </div>
+</div>
+
+---
+
+## Labs and algorithms
 
 ### Lab 1 — ROS 2 Fundamentals
 
@@ -121,17 +142,29 @@ Particle weights are raised to an inverse squash factor before normalization to 
 - **Forward-only closest-point search**: searches only 200 waypoints ahead of the last known position, preventing backward jumps when the car completes a lap and re-enters the start zone.
 - **Dynamic speed control**: speed is mapped inversely to steering angle magnitude (max speed on straights, min speed through tight corners) with exponential smoothing to avoid abrupt transitions.
 
+### Lab 6 — Motion Planning (RRT / RRT\*)
+
+Built a local planner for overtaking on top of a live **occupancy grid** generated from LiDAR. Implemented **RRT** (sampling-based path planning) and then upgraded to **RRT\*** with rewiring, so the path it returns converges toward the asymptotically optimal solution as the sample count grows. The planner is biased toward the goal point on the global raceline, with a collision check against the inflated occupancy grid at every node. Returned paths are smoothed and handed to Pure Pursuit for tracking.
+
+### Lab 7 — Vision
+
+Built the perception pipeline on an **Intel RealSense** camera: V4L2 capture, **OpenCV intrinsic calibration**, and **pinhole-geometry** distance estimation for cones of known size on the ground plane. Layered **YOLO** object detection on top and deployed it through **TensorRT** on the Jetson for real-time inference (cone classification → 2D bounding box → 3D position via known cone height and camera intrinsics).
+
+### Lab 8 — Model Predictive Control
+
+Implemented an **MPC** controller around a **kinematic bicycle model**. The continuous dynamics are linearized about the current operating point and discretized into a state-space form $x_{k+1} = A_k x_k + B_k u_k + C_k$, then a finite-horizon optimal control problem is solved as a **convex QP** at each step using CVXPY/OSQP. The cost balances tracking error against control effort and rate, with hard input constraints (steering angle, acceleration) and a soft track-boundary corridor. MPC produced visibly smoother lines through corners than Pure Pursuit at the same target speed.
+
 ---
 
 
-## 🛠️ Tech Stack
+## Stack
 
 | Layer | Details |
 |---|---|
 | OS & Middleware | Ubuntu 22.04, ROS 2 Humble |
-| Sensors | Hokuyo 10LX LiDAR, IMU |
 | Compute | NVIDIA Jetson Orin NX |
 | Languages | C++, Python |
-| Algorithms | AEB, PID Wall Follow, Follow the Gap, Particle Filter, Pure Pursuit, RRT |
+| Sensors | Hokuyo 10LX LiDAR, IMU, Intel RealSense |
+| Algorithms | AEB, PID Wall Follow, Follow the Gap, Particle Filter, Pure Pursuit, RRT / RRT\*, YOLO + TensorRT, MPC |
 | Simulation | F1Tenth Gym (ROS 2 bridge) |
 

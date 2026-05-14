@@ -15,7 +15,7 @@ links:
   url: https://github.com/zijin913/meam520_final
 ---
 
-## 🎯 Project Scope
+## Project scope
 
 <div style="display: flex; gap: 1.5rem; align-items: flex-start; flex-wrap: nowrap;">
   <div style="flex: 0 0 320px; max-width: 320px;">
@@ -36,7 +36,7 @@ links:
 
 ---
 
-## 🧠 Core Algorithms
+## Core algorithms
 
 ### 1. Dynamic Trajectory Prediction
 To grasp objects on a moving turntable, I implemented a kinematic prediction model. The future pose $P_{pred}$ at time $t+\Delta t$ is estimated by transforming the current center-relative position using the rotation matrix $R_{turn}$:

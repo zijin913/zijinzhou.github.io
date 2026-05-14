@@ -1,0 +1,115 @@
+{{ $item := .item }}
+{{ $index := .index }}
+
+{{ $link := $item.RelPermalink }}
+{{ $target := "" }}
+{{ if $item.Params.external_link }}
+  {{ $link = $item.Params.external_link }}
+  {{ $target = "target=\"_blank\" rel=\"noopener\"" }}
+{{ end }}
+
+{{/* Prefer a video resource (mp4/webm) for an eye-catching demo; fall back to a featured image; fall back to a gradient placeholder. Front-matter `featured_video: filename.mp4` lets a page pin a specific video. */}}
+{{ $video := "" }}
+{{ with $item.Params.featured_video }}
+  {{ $video = $item.Resources.GetMatch . }}
+{{ end }}
+{{ if not $video }}
+  {{ with $item.Resources.ByType "video" }}
+    {{ $video = index . 0 }}
+  {{ end }}
+{{ end }}
+{{ $image := partial "functions/get_featured_image.html" $item }}
+{{ $anchor := "Center" }}
+{{ if and $item.Params.image (reflect.IsMap $item.Params.image) }}
+  {{ $anchor = $item.Params.image.focal_point | default "Center" }}
+{{ end }}
+
+<article class="group bg-white/90 dark:bg-zinc-900/90 backdrop-blur-sm rounded-2xl ring-1 ring-zinc-900/5 dark:ring-white/10 shadow-lg overflow-hidden transition-all duration-300 ease-out hover:shadow-xl hover:shadow-primary-500/10 hover:-translate-y-1 focus-within:ring-2 focus-within:ring-primary-500/50">
+  <div class="grid grid-cols-1 md:grid-cols-12 gap-0 md:gap-6 items-stretch">
+
+    {{/* Media (left on desktop, top on mobile) */}}
+    <div class="md:col-span-5 relative overflow-hidden aspect-[16/9] md:aspect-auto bg-gradient-to-br from-zinc-100 to-zinc-200 dark:from-zinc-800 dark:to-zinc-900">
+      <a href="{{ $link }}" {{ $target | safeHTMLAttr }} class="block w-full h-full">
+        {{ if $video }}
+          <video class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                 autoplay muted loop playsinline preload="metadata"
+                 {{ if eq $index 0 }}fetchpriority="high"{{ end }}>
+            <source src="{{ $video.RelPermalink }}" type="{{ $video.MediaType.Type }}">
+          </video>
+        {{ else if $image }}
+          {{ if strings.Contains $image.MediaType.SubType "svg" }}
+            <img class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                 src="{{ $image.RelPermalink }}"
+                 loading="lazy" decoding="async"
+                 {{ if eq $index 0 }}fetchpriority="high"{{ end }}
+                 alt="{{ $item.Title | plainify }} featured image">
+          {{ else if ne $image.MediaType.SubType "gif" }}
+            {{ $filled := $image.Fill (printf "800x600 %s" $anchor) }}
+            {{ $responsive := partial "functions/process_responsive_image.html" (dict
+                "image" $filled
+                "mode" "responsive"
+                "sizes" (slice 400 600 800)
+                "formats" (slice "avif" "webp" "jpg")
+            ) }}
+            <img class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                 srcset="{{ $responsive.srcset }}"
+                 sizes="(max-width: 768px) 100vw, 40vw"
+                 src="{{ $responsive.fallback.RelPermalink }}"
+                 width="{{ $filled.Width }}" height="{{ $filled.Height }}"
+                 loading="lazy" decoding="async"
+                 {{ if eq $index 0 }}fetchpriority="high"{{ end }}
+                 alt="{{ $item.Title | plainify }} featured image">
+          {{ else }}
+            <img class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                 src="{{ $image.RelPermalink }}"
+                 width="{{ $image.Width }}" height="{{ $image.Height }}"
+                 loading="lazy" decoding="async"
+                 alt="{{ $item.Title | plainify }} featured image">
+          {{ end }}
+        {{ else }}
+          <div class="w-full h-full bg-gradient-to-br from-primary-600/40 via-secondary-600/30 to-primary-800/50 flex items-center justify-center transition-all duration-300 group-hover:from-primary-500/50 group-hover:via-secondary-500/40 group-hover:to-primary-700/60">
+            <div class="w-16 h-16 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+              <svg class="w-8 h-8 text-white/40" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd"/>
+              </svg>
+            </div>
+          </div>
+        {{ end }}
+      </a>
+    </div>
+
+    {{/* Text (right on desktop, below on mobile) */}}
+    <div class="md:col-span-7 p-5 md:p-6 flex flex-col justify-center gap-y-2.5">
+      {{ if and $item.Params.tags (gt (len $item.Params.tags) 0) }}
+        <div class="flex items-center gap-x-2 gap-y-1 flex-wrap text-[10px] uppercase tracking-wider font-medium text-zinc-500 dark:text-zinc-400">
+          {{ range $i, $tag := first 3 $item.Params.tags }}
+            {{ if gt $i 0 }}<span aria-hidden="true" class="opacity-50">·</span>{{ end }}
+            <span>{{ $tag }}</span>
+          {{ end }}
+        </div>
+      {{ end }}
+
+      <h3 class="text-lg md:text-xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-200 leading-snug">
+        <a href="{{ $link }}" {{ $target | safeHTMLAttr }} class="hover:underline">
+          {{ $item.Title }}
+          {{ if $item.Params.external_link }}
+            {{ partial "functions/get_icon" (dict "name" "arrow-top-right-on-square" "attributes" "style=\"height: 1em;\" class=\"inline-flex h-4 w-4 ml-1 align-text-top\"") }}
+          {{ end }}
+        </a>
+      </h3>
+
+      <p class="text-zinc-600 dark:text-zinc-400 text-[13px] md:text-sm leading-relaxed line-clamp-3">
+        {{ (partial "functions/get_summary" $item) | plainify | htmlUnescape | truncate 200 }}
+      </p>
+
+      <div class="pt-1">
+        <a href="{{ $link }}" {{ $target | safeHTMLAttr }} class="inline-flex items-center gap-1.5 text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium text-xs transition-all duration-300 group/link">
+          <span>{{ i18n "read_more" | default "Read more" }}</span>
+          <svg class="w-3.5 h-3.5 transition-transform group-hover/link:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</article>

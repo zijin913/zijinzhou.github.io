@@ -13,9 +13,15 @@ postnominals:
   - B.S.
 status:
   icon: "☕️"
-role: M.S.E. in Robotics
+role: "M.S.E. in Robotics, [GRASP Lab](https://www.grasp.upenn.edu)"
 bio: |
-  Zijin Zhou is a M.S.E. student at the University of Pennsylvania. Her research interests include robotics perception, manipulation, control, and embedded systems.
+  I'm a Master's student in Robotics at the University of Pennsylvania (M.S.E. '25–'27, GRASP Lab), interested in **robot learning, manipulation, and 3D perception**. I'm especially drawn to generative and predictive policies — **VLA models, diffusion policy, flow matching, world models, and imitation learning** — and to systems that pair the rigor of classical planning and control with the flexibility of modern foundation models.
+
+  Previously, I received my B.Eng. in Electronic and Information Engineering from the joint program of UESTC and the University of Glasgow, where I worked with Prof. Amir Parnianifard on metaheuristic optimization for wireless sensor network coverage. I also interned at VeriSilicon Microelectronics on embedded AI and NPU driver testing for robotics SoCs.
+
+# Shorter bio rendered in the per-project author card (homepage hero still uses `bio` above).
+card_bio: |
+  I'm a Master's student in Robotics at the University of Pennsylvania (M.S.E. '25–'27, GRASP Lab).
 
 affiliations:
   - name: University of Pennsylvania
@@ -37,10 +43,12 @@ links:
   #   url: https://orcid.org/0000-0002-1825-0097
 
 interests:
-  - 3D Vision & Geometric Reconstruction
-  - Physics-based Manipulation & Sim-to-Real
-  - Embedded AI & Real-time Control
-  - Optimal Control & Trajectory Planning
+  - Robot Learning & Manipulation
+  - VLA, Diffusion Policy, Flow Matching
+  - World Models & Model-based RL
+  - Imitation Learning & Sim-to-Real
+  - 3D Vision, SLAM & Scene Representations
+  - Planning & Control for Embodied Agents
 
 education:
   - degree: M.S.E. in Robotics

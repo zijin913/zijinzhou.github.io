@@ -1,51 +1,51 @@
 ---
-# Leave the homepage title empty to use the site title
 title: ''
 summary: ''
 date: 2022-10-24
 type: landing
 
 design:
-  # Default section spacing
-  spacing: '6rem'
+  spacing: '5rem'
 
 sections:
-  - block: resume-biography-3
+  - block: resume-biography
     content:
-      # Choose a user profile to display (a folder name within `content/authors/`)
       username: me
       text: ''
-      # Show a call-to-action button under your biography? (optional)
-      button:
-        text: 下载简历
-        url: uploads/resume.pdf
-      headings:
-        about: ''
-        education: ''
-        interests: ''
+      # button:
+      #   text: 下载简历
+      #   url: uploads/resume.pdf
     design:
-      # Use the new Gradient Mesh which automatically adapts to the selected theme colors
       background:
         gradient_mesh:
           enable: true
-
-      # Name heading sizing to accommodate long or short names
       name:
         size: md
-
-      # Avatar customization
       avatar:
         size: medium
         shape: circle
+
   - block: collection
-    id: papers
+    id: projects
     content:
-      title: 学术论文
+      title: 项目
+      text: ''
+      count: 0
       filters:
         folders:
-          - publications
-        featured_only: true
+          - projects
+        exclude_featured: false
+      sort_by: 'Date'
+      sort_ascending: false
     design:
-      view: article-grid
+      view: showcase
       columns: 1
+
+  - block: resume-experience
+    id: experience
+    content:
+      username: me
+    design:
+      date_format: 'Jan 2006'
+      is_education_first: false
 ---

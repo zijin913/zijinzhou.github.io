@@ -1,0 +1,130 @@
+<style>
+  /* Global root size — all rem-based Tailwind sizes shrink proportionally. */
+  html { font-size: 14px; }
+  @media (min-width: 1280px) { html { font-size: 14.5px; } }
+
+  /* Project detail pages use `prose prose-slate lg:prose-xl`.
+     prose-xl makes body ~1.25rem and headings huge — override down to a calmer scale,
+     and let the column expand to its parent's width (we widen the parent below). */
+  .prose-xl,
+  .prose {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    max-width: none;
+  }
+  .prose.container,
+  .prose-xl.container { max-width: none; }
+  .prose-xl h1, .prose h1 { font-size: 1.6rem;  line-height: 1.25; }
+  .prose-xl h2, .prose h2 { font-size: 1.3rem;  line-height: 1.3;  margin-top: 1.75em; margin-bottom: 0.6em; }
+  .prose-xl h3, .prose h3 { font-size: 1.1rem;  line-height: 1.35; margin-top: 1.5em;  margin-bottom: 0.5em; }
+  .prose-xl h4, .prose h4 { font-size: 1rem;    line-height: 1.4;  margin-top: 1.4em;  margin-bottom: 0.5em; }
+  .prose-xl p,
+  .prose-xl li,
+  .prose p,
+  .prose li  { font-size: 0.95rem; line-height: 1.7; }
+  .prose-xl pre, .prose pre   { font-size: 0.825rem; }
+  .prose-xl code, .prose code { font-size: 0.85em; }
+  .prose-xl blockquote, .prose blockquote { font-size: 0.95rem; }
+  .prose-xl table, .prose table { font-size: 0.875rem; }
+
+  /* Article title at the top of single pages — was text-4xl (2.25rem) */
+  h1[data-pagefind-meta="title"] { font-size: 1.85rem; line-height: 1.2; }
+
+  /* Hide the giant featured-image banner at the top of every project detail page.
+     The image still serves as the homepage showcase card; we just don't repeat it here. */
+  .article-header.featured-image-wrapper { display: none; }
+
+  /* Widen the resume-experience timeline on the homepage (theme caps it at max-w-4xl). */
+  section.blox-resume-experience .max-w-4xl { max-width: 70rem; }
+
+  /* Hero (resume-biography) — left-right layout.
+     LEFT column: avatar → name → pronouns → role → affiliation → social icons
+     RIGHT column: bio paragraphs → Download CV button
+     Collapses to a single centered column on mobile. */
+  #profile.resume-biography {
+    display: grid;
+    grid-template-columns: minmax(220px, 20rem) minmax(0, 1fr);
+    grid-template-rows: repeat(6, auto) 1fr;
+    column-gap: 3rem;
+    row-gap: 0.35rem;
+    align-items: start;
+    justify-items: start;
+    text-align: left;
+    max-width: 70rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 2.5rem 1.5rem;
+  }
+
+  /* By default every direct child sits in the LEFT column, auto-rowed top to bottom. */
+  #profile.resume-biography > * { grid-column: 1; width: 100%; }
+
+  /* Bio spans the full height of the left stack and centers vertically inside it,
+     so the two columns visually balance instead of bio sitting at the top. */
+  #profile.resume-biography > .prose {
+    grid-column: 2;
+    grid-row: 1 / 7;
+    align-self: center;
+    margin: 0 !important;
+    padding-top: 0 !important;
+  }
+
+  /* Download CV button: right column, just below the bio. */
+  #profile.resume-biography > a[class*="inline-flex"] {
+    grid-column: 2;
+    grid-row: 7;
+    justify-self: start;
+    width: auto;
+    margin-top: 1rem !important;
+  }
+
+  /* Avatar/typography tightening for the new layout. */
+  #profile.resume-biography > .avatar-wrapper {
+    margin: 0 0 1rem 0 !important;
+    justify-self: start;
+  }
+  #profile.resume-biography > .text-3xl { margin: 0 0 0.1rem 0 !important; }
+  #profile.resume-biography > .text-lg  { margin: 0 0 0.25rem 0 !important; }
+  #profile.resume-biography > h3        { margin: 0.5rem 0 0.15rem 0 !important; font-size: 1rem; }
+  #profile.resume-biography > .mb-2     { margin: 0 0 0.25rem 0 !important; }
+  #profile.resume-biography > ul.network-icon {
+    margin: 0.6rem 0 0 0 !important;
+    padding-left: 0 !important;
+    justify-content: flex-start !important;
+    width: auto !important;
+  }
+
+  /* Neutralise internal centering. */
+  #profile.resume-biography .d-flex.justify-content-center,
+  #profile.resume-biography [class*="justify-center"] {
+    justify-content: flex-start !important;
+  }
+  #profile.resume-biography .bio-text { text-align: left; }
+
+  @media (max-width: 900px) {
+    #profile.resume-biography {
+      grid-template-columns: 1fr;
+      grid-template-rows: none;
+      justify-items: center;
+      text-align: center;
+      padding: 2rem 1rem;
+    }
+    #profile.resume-biography > * {
+      grid-column: 1 !important;
+      grid-row: auto !important;
+    }
+    #profile.resume-biography > .avatar-wrapper { margin: 0 auto 1rem !important; justify-self: center; }
+    #profile.resume-biography > a[class*="inline-flex"] { justify-self: center; }
+    #profile.resume-biography > ul.network-icon { justify-content: center !important; }
+    #profile.resume-biography .bio-text { text-align: center; }
+    #profile.resume-biography .d-flex.justify-content-center,
+    #profile.resume-biography [class*="justify-center"] {
+      justify-content: center !important;
+    }
+  }
+
+  /* Project detail pages: widen both the outer flex wrapper and the main column so the
+     article actually uses the screen on wide monitors. */
+  div.flex.max-w-screen-xl { max-width: 100rem; }
+  article > main.max-w-6xl { max-width: 92rem; }
+</style>
