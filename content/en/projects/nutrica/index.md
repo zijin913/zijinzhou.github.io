@@ -23,7 +23,7 @@ In 2026, Nutrica was honored as a **Gold Winner at the MUSE Creative Awards** in
 
 ## Demo
 
-<video width="100%" controls>
+<video width="100%" autoplay muted loop playsinline controls preload="auto">
   <source src="nutrica.mp4" type="video/mp4">
 </video>
  

@@ -1,5 +1,5 @@
 ---
-title: F1Tenth Autonomous Racing
+title: "2026 F1TENTH RoboRacer: Reactive, Map-Based, and Head-to-Head Racing"
 summary: Programming a 1/10th-scale autonomous racecar in ROS 2 — from reactive collision avoidance to SLAM-based navigation — competing in live races at UPenn's Levine Lobby. 1st place in Race 2.
 featured_video: final_race.mp4
 math: true
@@ -32,7 +32,7 @@ February 25, 2026 · Levine Lobby, UPenn · **3rd place**
 
 <div style="display: flex; gap: 1.5rem; align-items: center; flex-wrap: nowrap;">
   <div style="flex: 0 0 320px; max-width: 320px;">
-    <video style="width: 100%; height: 360px; object-fit: cover; border-radius: 10px; display: block;" controls playsinline preload="metadata">
+    <video style="width: 100%; height: 360px; object-fit: cover; border-radius: 10px; display: block;" autoplay muted loop playsinline controls preload="metadata">
       <source src="race1.mp4" type="video/mp4">
     </video>
   </div>
@@ -51,7 +51,7 @@ March 23, 2026 · Levine Lobby, UPenn · **1st place**
 
 <div style="display: flex; gap: 1.5rem; align-items: center; flex-wrap: nowrap;">
   <div style="flex: 0 0 320px; max-width: 320px;">
-    <video style="width: 100%; height: 360px; object-fit: cover; border-radius: 10px; display: block;" controls playsinline preload="metadata">
+    <video style="width: 100%; height: 360px; object-fit: cover; border-radius: 10px; display: block;" autoplay muted loop playsinline controls preload="metadata">
       <source src="race2.mp4" type="video/mp4">
     </video>
   </div>
@@ -68,7 +68,7 @@ Houston Hall, UPenn · **3rd place**
 
 <div style="display: flex; gap: 1.5rem; align-items: flex-start; flex-wrap: nowrap;">
   <div style="flex: 0 0 320px; max-width: 320px;">
-    <video style="width: 100%; height: auto; border-radius: 10px;" controls playsinline preload="metadata">
+    <video style="width: 100%; height: auto; border-radius: 10px;" autoplay muted loop playsinline controls preload="metadata">
       <source src="final_race.mp4" type="video/mp4">
     </video>
   </div>

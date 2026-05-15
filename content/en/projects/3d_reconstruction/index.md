@@ -6,6 +6,7 @@ tags:
   - SLAM
   - PyTorch
 date: 2025-11-01
+draft: true  # temporarily hidden from the site; remove to re-enable
 
 links:
 - type: code

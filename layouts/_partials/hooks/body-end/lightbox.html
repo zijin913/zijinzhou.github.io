@@ -1,0 +1,96 @@
+<style>
+  /* Make every image inside the article prose clickable for full-size viewing.
+     Skips images wrapped in their own <a> (e.g. the FSM SVG link), images that
+     opt out with data-no-lightbox, and the inline <video> resource thumbnails. */
+  .prose img:not([data-no-lightbox]) {
+    cursor: zoom-in;
+    transition: opacity 0.15s ease;
+  }
+  .prose a > img { cursor: pointer; }
+  .prose img:not([data-no-lightbox]):hover { opacity: 0.92; }
+
+  #hb-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    background: rgba(0, 0, 0, 0.92);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    cursor: zoom-out;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+  #hb-lightbox.open { display: flex; opacity: 1; }
+  #hb-lightbox img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 4px;
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.45);
+  }
+  #hb-lightbox .hb-lightbox-close {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.5rem;
+    color: rgba(255, 255, 255, 0.85);
+    background: rgba(0, 0, 0, 0.45);
+    border: 0;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 9999px;
+    font-size: 1.25rem;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #hb-lightbox .hb-lightbox-close:hover { background: rgba(0, 0, 0, 0.7); }
+</style>
+
+<div id="hb-lightbox" role="dialog" aria-modal="true" aria-hidden="true">
+  <button class="hb-lightbox-close" aria-label="Close">&times;</button>
+  <img alt="" />
+</div>
+
+<script>
+(function () {
+  const overlay = document.getElementById('hb-lightbox');
+  if (!overlay) return;
+  const overlayImg = overlay.querySelector('img');
+  const closeBtn = overlay.querySelector('.hb-lightbox-close');
+
+  function open(src, alt) {
+    overlayImg.src = src;
+    overlayImg.alt = alt || '';
+    overlay.classList.add('open');
+    overlay.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+  function close() {
+    overlay.classList.remove('open');
+    overlay.setAttribute('aria-hidden', 'true');
+    overlayImg.src = '';
+    document.body.style.overflow = '';
+  }
+
+  document.addEventListener('click', function (e) {
+    const img = e.target.closest('.prose img');
+    if (!img) return;
+    if (img.dataset.noLightbox !== undefined) return;
+    // If the image is already wrapped in its own <a>, let that anchor handle the click.
+    if (img.closest('.prose a')) return;
+    e.preventDefault();
+    open(img.currentSrc || img.src, img.alt);
+  });
+
+  overlay.addEventListener('click', function (e) {
+    if (e.target === overlay || e.target === closeBtn) close();
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && overlay.classList.contains('open')) close();
+  });
+})();
+</script>

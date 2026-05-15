@@ -1,6 +1,7 @@
 ---
 title: "SCOUT: Semantic Checkpointed Exploration for Unknown Indoor Environments with LLM-Based Guidance"
 summary: An F1TENTH stack for exploring buildings the car has never seen — pairing online SLAM with a checkpoint graph and a vision-language model that picks junctions by reading the map. 71% fewer steps than frontier-only on goal-directed tasks.
+featured_video: scout_full_demo.mp4
 math: true
 tags:
   - Robotics
@@ -19,9 +20,11 @@ links:
   url: /uploads/scout_project.pdf
 ---
 
-<div style="display: flex; gap: 1.75rem; align-items: flex-start; flex-wrap: nowrap; margin-bottom: 1.5rem;">
+<div style="display: flex; gap: 1.75rem; align-items: center; flex-wrap: nowrap; margin-bottom: 1.5rem;">
   <div style="flex: 0 0 280px; max-width: 280px;">
-    <img src="featured.gif" alt="SCOUT exploring an unmapped corridor" style="width: 100%; height: auto; border-radius: 10px;" />
+    <video style="width: 100%; height: 360px; object-fit: cover; border-radius: 10px; display: block;" autoplay muted loop playsinline preload="auto">
+      <source src="scout_demo.mp4" type="video/mp4">
+    </video>
   </div>
   <div style="flex: 1 1 auto; min-width: 0;">
     <strong>SCOUT</strong> (<em>Semantically Checkpointed Online Unknown-space Traversal</em>) is an F1TENTH stack for navigating buildings the car has never seen. It runs online SLAM, remembers junctions as a graph, and asks a vision-language model to break ties at ambiguous intersections.
@@ -68,7 +71,7 @@ The state machine is `exploring → planning → pursuing → rewinding`. Planni
 
 ## What changed in the field
 
-We tested in the Levine Hall corridors against (a) reactive Follow-the-Gap and (b) plain frontier navigation.
+We tested in the Skirkanich Hall corridors against (a) reactive Follow-the-Gap and (b) plain frontier navigation.
 
 *Goal-directed search — find Skirkanich Hall, the one with the stairs:*
 
@@ -87,6 +90,12 @@ We tested in the Levine Hall corridors against (a) reactive Follow-the-Gap and (
   <img src="results2.png" alt="Result snapshot 2" style="flex: 1 1 0; min-width: 0; width: 100%; border-radius: 6px; margin: 0;" />
   <img src="results3.png" alt="Result snapshot 3" style="flex: 1 1 0; min-width: 0; width: 100%; border-radius: 6px; margin: 0;" />
 </div>
+
+A full run on the Skirkanich Hall test course — online SLAM, checkpoint creation at junctions, VLM-guided branch selection, and breadcrumb-rewind recovery, end to end *(5× speed)*:
+
+<video style="width: 100%; max-width: 100%; border-radius: 10px; display: block; margin: 1.5rem 0;" autoplay muted loop playsinline controls preload="metadata">
+  <source src="scout_full_demo.mp4" type="video/mp4">
+</video>
 
 ## What was hard
 

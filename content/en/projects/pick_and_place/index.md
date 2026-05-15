@@ -1,5 +1,5 @@
 ---
-title: Franka Robotic Manipulation
+title: "Dynamic Pick-and-Place Motion Planning with the 7-DOF Franka Emika Panda"
 summary: A full-stack autonomous manipulation system capable of static stacking and dynamic grasping on a moving turntable.
 math: true
 tags:
@@ -13,6 +13,8 @@ date: 2025-12-13
 links:
 - type: code
   url: https://github.com/zijin913/meam520_final
+- name: Report
+  url: /uploads/pick_and_place_report.pdf
 ---
 
 ## Project scope
