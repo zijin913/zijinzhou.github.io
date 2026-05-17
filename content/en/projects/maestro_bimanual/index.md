@@ -17,11 +17,11 @@ links:
 
 [**Maestro**](https://maestro-robot.github.io/) (Shi et al., UPenn) is a VLM coding agent that composes specialized perception, planning, control, and learned-policy *tool modules* into programmatic policies for generalist robots. The paper demonstrates a competitive modular policy on tabletop and mobile *single-arm* tasks. **I'm extending Maestro to bimanual operation** on a two-HexArm setup — many of the manipulation tasks that matter (cloth folding, surface cleaning, large-object handling, etc.) require two arms cooperating, and Maestro's modular tool-composition design makes this primarily a tool-orchestration problem rather than a from-scratch policy problem.
 
-## Why bimanual is a coding-agent problem
+<!-- ## Why bimanual is a coding-agent problem
 
 The original Maestro paper makes the argument that *programmatic* policies — composed by an LLM/VLM agent from a small library of well-typed robotics tools — can match or exceed monolithic VLA models on generalist manipulation. The argument transfers cleanly to bimanual: the *toolbox* doesn't change much (you still need perception, grasps, plans, learned skills), but the *plan* now has to assign roles to two arms, coordinate their motion, and avoid them colliding. That's exactly the kind of structured reasoning a coding agent is good at and a monolithic policy is bad at.
 
-Concretely, what changes is the *program* the agent writes, not the modules it calls. So the bimanual extension is mostly about (a) exposing per-arm tool variants the agent can target, (b) widening the planner to multi-arm awareness, and (c) updating the prompt and examples so the agent reliably reasons about two-arm role assignment.
+Concretely, what changes is the *program* the agent writes, not the modules it calls. So the bimanual extension is mostly about (a) exposing per-arm tool variants the agent can target, (b) widening the planner to multi-arm awareness, and (c) updating the prompt and examples so the agent reliably reasons about two-arm role assignment. -->
 
 ## Toolbox composed by the coding agent
 
@@ -31,8 +31,8 @@ Each module below is exposed as a named tool that the VLM agent can call from th
 - **Grasp synthesis** — [GraspGen](https://research.nvidia.com/labs/gear/graspgen/) generates candidate gripper poses on the segmented point cloud, called *per-arm*: the agent chooses which arm grasps which object/keypoint.
 - **GPU-accelerated motion planning** — [CuRoBo](https://curobo.org/) solves trajectory optimization with native multi-arm collision-avoidance, so the two arms plan around each other rather than around each other's stale plans.
 - **High-level reasoning** — *Gemini 2.5 Pro* as the coding agent: it decomposes the task, assigns roles to each arm, and emits Python-like code that composes the modules above into a plan.
-- **Local VLM monitor** — *Qwen2.5-VL* runs as a fast closed-loop progress checker (following the Maestro paper), triggering replans when a subtask doesn't complete cleanly.
-- **Learned short-horizon skills** — VLA / diffusion-policy tools trained on demonstrations from a [bimanual teleop and data-collection pipeline](../teleop_pipeline/), invoked by the agent for the parts of a task that don't decompose into clean geometric primitives.
+<!-- - **Local VLM monitor** — *Qwen2.5-VL* runs as a fast closed-loop progress checker (following the Maestro paper), triggering replans when a subtask doesn't complete cleanly. -->
+<!-- - **Learned short-horizon skills** — VLA / diffusion-policy tools trained on demonstrations from a [bimanual teleop and data-collection pipeline](../teleop_pipeline/), invoked by the agent for the parts of a task that don't decompose into clean geometric primitives. -->
 
 ## What changes for bimanual
 
