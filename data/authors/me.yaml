@@ -15,7 +15,7 @@ status:
   icon: "☕️"
 role: "M.S.E. in Robotics, [GRASP Lab](https://www.grasp.upenn.edu)"
 bio: |
-  I'm a Master's student in Robotics at the University of Pennsylvania (M.S.E. '25–'27, GRASP Lab), interested in **robot learning, manipulation, and 3D perception**. I'm especially drawn to generative and predictive policies — **VLA models, diffusion policy, flow matching, world models, and imitation learning** — and to systems that pair the rigor of classical planning and control with the flexibility of modern foundation models.
+  I'm a Master's student in Robotics at the University of Pennsylvania (M.S.E. '25–'27, GRASP Lab), interested in **robot learning, manipulation, and 3D perception**. I'm especially drawn to generative and predictive policies — **VLA models, diffusion policy, and imitation learning** — and to systems that pair the rigor of classical planning and control with the flexibility of modern foundation models.
 
   Previously, I received my B.Eng. in Electronic and Information Engineering from the joint program of UESTC and the University of Glasgow, where I worked with Prof. Amir Parnianifard on metaheuristic optimization for wireless sensor network coverage. I also interned at VeriSilicon Microelectronics on embedded AI and NPU driver testing for robotics SoCs.
 
