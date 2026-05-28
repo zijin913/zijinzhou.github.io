@@ -75,6 +75,7 @@ Each module below is exposed as a named tool that the VLM agent can call from th
     <video style="width: 100%; height: auto; border-radius: 10px; display: block;" autoplay muted loop playsinline controls preload="metadata">
       <source src="blackboard.mp4" type="video/mp4">
     </video>
+    <p style="text-align: center; font-size: 0.8em; color: #888; margin: 0.4rem 0 0;">3× speed.</p>
   </div>
   <div style="flex: 1 1 auto; min-width: 0;">
     <strong>Selective blackboard erasing.</strong> Two demos side-by-side. The <em>top</em> half shows coordinated wiping across the whole board — one arm wipes while the other stabilizes or repositions the eraser, with the agent choosing the sweep pattern from the perception mask. The <em>bottom</em> half is the more interesting case: the prompt asks the system to <strong>erase only the green dots without touching the red ones</strong>. The perception module returns separate masks for green vs. red dots; the coding agent generates a wipe trajectory that visits each green-dot region while routing around the red ones — exactly the kind of structured spatial reasoning that benefits from a code-writing agent over a monolithic policy.
