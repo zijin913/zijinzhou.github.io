@@ -45,13 +45,20 @@ That single decision is what made it tractable to ship three teleop modes on the
   </div>
 </div>
 
-**Meta Quest 3S (VR).** An app on the headset captures controller pose and button state; a reader on the host (built on top of Berkeley RAIL's [`oculus_reader`](https://github.com/rail-berkeley/oculus_reader)) streams it in and presents it as the same standard input the rest of the system expects. One headset drives a dual-arm setup with the two controllers in a single operator's hands. A one-time frame alignment at the start of each session brings the headset's heading-locked reference into the robot base frame. Best 6-DOF immersion and the only mode that lets a single operator control both arms simultaneously; pays for it with the per-session calibration step. *(Demo video coming soon.)*
+<div style="margin: 1rem 0 1.5rem;">
+  <div style="margin-bottom: 1rem;">
+    <strong>Meta Quest 3S (VR).</strong> An app on the headset captures controller pose and button state; a reader on the host (built on top of Berkeley RAIL's <a href="https://github.com/rail-berkeley/oculus_reader"><code>oculus_reader</code></a>) streams it in and presents it as the same standard input the rest of the system expects. One headset drives a dual-arm setup with the two controllers in a single operator's hands. A one-time frame alignment at the start of each session brings the headset's heading-locked reference into the robot base frame. Best 6-DOF immersion and the only mode that lets a single operator control both arms simultaneously; pays for it with the per-session calibration step. <em>(Clip played at 2.5× speed.)</em>
+  </div>
+  <video style="width: 100%; max-width: 640px; border-radius: 10px; display: block; margin: 0 auto;" autoplay muted loop playsinline controls preload="metadata">
+    <source src="quest3s.mp4" type="video/mp4">
+  </video>
+</div>
 
 ## Data collection pipeline
 
 This is the part that mattered most for downstream imitation learning, and where most of the engineering went.
 
-**Off-thread recorder.** Trajectory recording runs on a background thread; cameras are grabbed in a subprocess. Vision throughput never backpressures the control loop, so the arm holds a stable 100 Hz control rate while images and joint states are captured at the recording rate.
+**Off-thread recorder.** Trajectory recording runs on a background thread; cameras are grabbed in a subprocess. Vision throughput never backpressures the control loop, so the arm holds a stable 500 Hz closed-loop control rate (state feedback to command) while images and joint states are captured at the recording rate.
 
 **Always-on recording with clutch passthrough.** Releasing the clutch does *not* pause recording — the recorded action becomes "hold the current state." This keeps the dataset coherent during operator pauses: a learned policy sees a continuous observation/action stream rather than a sequence with mysterious gaps it would have to learn around.
 
@@ -60,6 +67,15 @@ This is the part that mattered most for downstream imitation learning, and where
 **Success / failure auto-categorization.** A single keystroke at the end of each episode files the trajectory into a success or failure folder. No manual cleanup pass before training; the failure trajectories are already segregated and can be opted into negative-example training if a method wants them.
 
 **One workflow across all teleop modes.** A single command drives every collection session — the operator chooses the teleop mode and single- vs. dual-arm setup as flags. This is the payoff of the controller abstraction: recording, calibration, success tracking, and HDF5 writing are identical regardless of which input device the operator is using.
+
+<div style="margin: 1.5rem 0; display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: center;">
+  <video style="width: 100%; max-width: 280px; border-radius: 10px; display: block; margin: 0 auto;" autoplay muted loop playsinline controls preload="metadata">
+    <source src="replay.mp4" type="video/mp4">
+  </video>
+  <div style="flex: 1 1 300px;">
+    <strong>Replay as a pipeline check.</strong> Recorded episodes can be replayed through the same controller interface, which doubles as an end-to-end test of the data path: if the logged actions, timestamps, and calibration are right, the arm reproduces the demonstration exactly. Shown here is a plug insertion/removal episode replayed continuously for roughly two hours &mdash; about 165 insert-and-remove cycles with zero failures &mdash; confirming that the recorded trajectories are precise and repeatable enough to train on. <em>(Clip played at 2&times; speed.)</em>
+  </div>
+</div>
 
 ## Hand-eye calibration (adapted from Eva)
 

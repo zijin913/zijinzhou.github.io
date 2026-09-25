@@ -127,4 +127,13 @@
      article actually uses the screen on wide monitors. */
   div.flex.max-w-screen-xl { max-width: 100rem; }
   article > main.max-w-6xl { max-width: 92rem; }
+
+  /* Center the article: hide the theme's docs-style side columns — the invisible 16rem
+     left sidebar spacer and the right "On this page" TOC. Must start at lg (1024px), not xl:
+     between 1024–1279px the theme's component CSS (display:flex) overrides its own
+     `lg:hidden` utility, so the empty spacer stays in flow and shoves the article right. */
+  @media (min-width: 1024px) {
+    aside.hb-sidebar-container { display: none !important; }
+    nav.hb-toc { display: none !important; }
+  }
 </style>
