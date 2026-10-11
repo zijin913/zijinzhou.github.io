@@ -9,7 +9,7 @@ tags:
   - Real-to-Sim
 links:
   - name: Related — bimanual Maestro on hardware
-    url: /projects/maestro_bimanual/
+    url: https://zijin913.github.io/zijinzhou.github.io/projects/maestro_bimanual/
 ---
 
 I built a **Genesis-based manipulation and evaluation platform** to study how vision-language agents turn visual observations into physical actions. The work brings together reconstructed tabletop scenes, a DROID-style robot and camera setup, a simulation port of Maestro's tool interfaces, and independent checks of what the robot actually accomplished.
@@ -122,4 +122,4 @@ The evaluation spans a basic control interface and cumulative Maestro stages: **
 
 ## Relationship to my other robotics work
 
-This project complements my [bimanual Maestro work on real hardware](/projects/maestro_bimanual/). Here, my focus is the simulation environment, asset and sensor integration, control adapters, and evaluation infrastructure. Maestro provides the agent framework; Genesis provides the physics engine; GroundedSAM, GraspGen, and FoundationStereo provide specialized perception components. The staged comparisons described here use the simulation's IK motion path; cuRobo integration is a separate supported configuration.
+This project complements my [bimanual Maestro work on real hardware](../maestro_bimanual/). Here, my focus is the simulation environment, asset and sensor integration, control adapters, and evaluation infrastructure. Maestro provides the agent framework; Genesis provides the physics engine; GroundedSAM, GraspGen, and FoundationStereo provide specialized perception components. The staged comparisons described here use the simulation's IK motion path; cuRobo integration is a separate supported configuration.
